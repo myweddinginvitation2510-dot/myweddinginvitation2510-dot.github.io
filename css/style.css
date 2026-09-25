@@ -1,0 +1,379 @@
+  /* ---------- Foundations ---------- */
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+  body {
+    background: #FBF5E9;
+    color: #2A211B;
+    font-family: 'Be Vietnam Pro', 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .font-display { font-family: 'Cormorant Garamond', Georgia, serif; }
+  h2 { text-wrap: balance; }
+  /* Small caps-style labels: the display serif (Cormorant Garamond) in spaced capitals reads softer
+     and more elegant than the sans it replaced. Cormorant runs small, so the size is a touch larger. */
+  .eyebrow {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    font-variant-numeric: lining-nums;   /* "10:00 · Nhà gái": Cormorant defaults to old-style figures */
+    color: #7F5F24;                      /* a shade deeper than the palette gold: Cormorant's fine strokes need the contrast */
+  }
+  .eyebrow--on-dark { color: #E7CE9B; }
+  .tabular { font-variant-numeric: tabular-nums; }
+
+  /* ---------- Scroll progress ---------- */
+  #progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+    background: linear-gradient(90deg, #93702F, #C9A15A);
+    z-index: 60; transition: width 0.1s linear;
+  }
+
+  /* ---------- Floating music toggle (also referenced from footer) ---------- */
+  #music-toggle {
+    position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 60;
+    width: 52px; height: 52px; border-radius: 999px;
+    background: #6B1E2A; color: #E7CE9B;
+    border: 1px solid #C9A15A;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 18px rgba(66, 19, 28, 0.35);
+    cursor: pointer;
+  }
+  #music-toggle:focus-visible, a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+    outline: 2px solid #93702F; outline-offset: 2px;
+  }
+  #music-toggle .ring {
+    position: absolute; inset: -6px; border-radius: 999px; border: 1px solid #C9A15A;
+    opacity: 0.5;
+  }
+  #music-toggle[aria-pressed="true"] .ring { animation: pulse-ring 2.4s ease-out infinite; }
+  @keyframes pulse-ring {
+    0% { transform: scale(0.85); opacity: 0.6; }
+    100% { transform: scale(1.35); opacity: 0; }
+  }
+
+  /* ---------- Hero ---------- */
+  #hero {
+    position: relative;
+    min-height: 100svh;
+    background: radial-gradient(120% 100% at 50% 0%, #7C2433 0%, #6B1E2A 45%, #42131C 100%);
+    color: #FBF5E9;
+    overflow: hidden;
+  }
+  #hero .frame {
+    position: absolute; inset: 14px;
+    border: 1px solid rgba(201, 161, 90, 0.55);
+    pointer-events: none;
+  }
+  @media (min-width: 640px) { #hero .frame { inset: 28px; } }
+  .corner { position: absolute; width: 46px; height: 46px; color: #C9A15A; opacity: 0.85; }
+  .corner--tl { top: 26px; left: 26px; }
+  .corner--br { bottom: 26px; right: 26px; transform: rotate(180deg); }
+  @media (min-width: 640px) { .corner--tl { top: 40px; left: 40px; } .corner--br { bottom: 40px; right: 40px; } }
+
+  /* Hero lines rise in one after another once the invitation is opened (delays start after the
+     splash has begun to clear, so the entrance is seen instead of playing behind the splash). */
+  .hero-reveal { opacity: 0; transform: translateY(14px); animation: hero-in 1s ease-out forwards; }
+  html.is-closed .hero-reveal { animation-play-state: paused; }
+  .hero-reveal:nth-child(1) { animation-delay: 0.45s; }
+  .hero-reveal:nth-child(2) { animation-delay: 0.65s; }
+  .hero-reveal:nth-child(3) { animation-delay: 0.85s; }
+  .hero-reveal:nth-child(4) { animation-delay: 1.05s; }
+  .hero-reveal:nth-child(5) { animation-delay: 1.25s; }
+  @keyframes hero-in { to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-reveal { opacity: 1; transform: none; animation: none; }
+  }
+
+  .countdown-tile {
+    background: rgba(251, 245, 233, 0.06);
+    border: 1px solid rgba(201, 161, 90, 0.45);
+    min-width: 4.4rem;
+  }
+
+  .scroll-cue { animation: cue-bob 2.6s ease-in-out infinite; }
+  @keyframes cue-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+  @media (prefers-reduced-motion: reduce) { .scroll-cue { animation: none; } }
+
+  /* ---------- Scroll reveal (below the fold) ---------- */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  /* ---------- Drop cap ---------- */
+  .drop-cap::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.4rem;
+    font-weight: 600;
+    color: #93702F;
+    float: left;
+    line-height: 0.8;
+    padding-right: 0.5rem;
+    padding-top: 0.35rem;
+  }
+
+  /* ---------- Timeline ---------- */
+  .tl-list { position: relative; }
+  .tl-item { display: grid; grid-template-columns: 1fr; gap: 0.35rem; position: relative; padding-left: 2.1rem; }
+  .tl-item::before { /* spine */
+    content: ''; position: absolute; left: 0.55rem; top: 0; bottom: -2.5rem; width: 1px; background: rgba(62, 90, 76, 0.3);
+  }
+  .tl-item:last-child::before { display: none; }
+  .tl-dot {
+    position: absolute; left: 0; top: 0.35rem; width: 1.1rem; height: 1.1rem; border-radius: 999px;
+    background: #F1E4CF; border: 1px solid #3E5A4C;
+  }
+
+  /* ---------- Wedding-date block: big date + month calendar ---------- */
+  .date-row { display: flex; align-items: center; justify-content: center; gap: 1rem; }
+  .date-row .dow, .date-row .mon { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: #5B4C3F; white-space: nowrap; }
+  .date-row .day {
+    font-family: 'Cormorant Garamond', Georgia, serif; font-size: 3rem; font-weight: 500; line-height: 1; color: #2A211B;
+    padding-inline: 1rem; border-inline: 1px solid rgba(201, 161, 90, 0.7);
+    font-variant-numeric: lining-nums tabular-nums;   /* Cormorant defaults to old-style figures */
+  }
+  .cal {
+    max-width: 19rem; margin: 1.5rem auto 0; overflow: hidden;
+    background: #FBF5E9; border: 1px solid rgba(201, 161, 90, 0.55); border-radius: 4px;
+  }
+  .cal-title { padding: 0.75rem 0 0.65rem; font-size: 0.8rem; font-weight: 600; color: #2A211B; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-variant-numeric: tabular-nums; }
+  .cal-head { border-bottom: 1.5px solid #6B1E2A; }
+  .cal-head span { padding: 0.45rem 0; font-size: 0.62rem; letter-spacing: 0.06em; color: #5B4C3F; }
+  .cal-days { padding: 0.4rem 0.25rem 0.5rem; }
+  .cal-day { position: relative; height: 2.4rem; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #5B4C3F; }
+  .cal-day.is-wedding { color: #FBF5E9; font-weight: 700; }
+  .cal-day.is-wedding svg { position: absolute; width: 2.15rem; height: 1.85rem; color: #6B1E2A; filter: drop-shadow(0 3px 4px rgba(66, 19, 28, 0.3)); }
+  .cal-day.is-wedding span { position: relative; z-index: 1; }
+  /* The heart gives one soft beat as the calendar scrolls into view. */
+  @keyframes heart-beat { 0%, 100% { transform: scale(1); } 40% { transform: scale(1.18); } 70% { transform: scale(0.96); } }
+  .reveal.is-visible .cal-day.is-wedding svg { animation: heart-beat 1.1s ease-out 0.6s 2; }
+
+  /* ---------- Leaf ornament ---------- */
+  .sprig { color: #93702F; }
+
+  /* ---------- Opening splash ---------- */
+  /* Locks scroll without losing the page's scroll position (avoids the
+     jump-to-top bug that plain `overflow:hidden` on body/html causes). */
+  body.scroll-lock { position: fixed; left: 0; right: 0; overflow: hidden; }
+  #splash {
+    position: fixed; inset: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: center; padding: 1.5rem;
+    background: radial-gradient(120% 100% at 50% 30%, #5A1B26 0%, #42131C 60%, #2C0D14 100%);
+    will-change: opacity, transform;
+    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  /* Opening: the cover softly fades while easing forward (scale up), as if we step through it. */
+  #splash.is-hidden { opacity: 0; transform: scale(1.08); visibility: hidden; pointer-events: none; }
+
+  #splash-open { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); }
+  #splash-open:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35); }
+  #splash-open:active { transform: translateY(0) scale(0.97); }
+
+  /* The invitation itself waits behind the cover, then rises and fades in just after the cover starts to clear. */
+  main, #footer {
+    transition: opacity 1.2s ease 0.3s, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+  }
+  html.is-closed main, html.is-closed #footer { opacity: 0; transform: translateY(30px); }
+
+  /* The blanket reduced-motion rule at the top of this file would make the opening an instant cut.
+     Keep a gentle fade (no scale / no rise) so the transition still feels smooth. */
+  @media (prefers-reduced-motion: reduce) {
+    #splash { transition-duration: 1s !important; }
+    #splash.is-hidden { transform: none; }
+    main, #footer { transition-duration: 1.2s !important; }
+    html.is-closed main, html.is-closed #footer { transform: none; }
+  }
+  .splash-glyph {
+    position: absolute; color: #C9A15A; opacity: 0.14; font-size: 2.2rem; user-select: none;
+    animation: glyph-float 7s ease-in-out infinite;
+  }
+  @keyframes glyph-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  @media (prefers-reduced-motion: reduce) { .splash-glyph { animation: none; } }
+  .splash-card {
+    position: relative; z-index: 1; width: 100%; max-width: 360px;
+    background: rgba(107, 30, 42, 0.55);
+    border: 1px solid rgba(201, 161, 90, 0.55);
+    padding: 3rem 1.75rem 2.5rem; text-align: center; color: #FBF5E9;
+    backdrop-filter: blur(2px);
+  }
+  .splash-mono {
+    width: 56px; height: 56px; margin: 0 auto 1.2rem; border-radius: 999px;
+    background: #FBF5E9; color: #6B1E2A; display: flex; align-items: center; justify-content: center;
+    border: 1px solid #C9A15A;
+  }
+
+  /* ---------- Welcome arch ---------- */
+  .arch-panel {
+    position: relative;
+    background: radial-gradient(130% 100% at 50% 0%, #7C2433 0%, #6B1E2A 55%, #42131C 100%);
+    padding: 2.5rem 1.5rem 13rem;
+    text-align: center;
+    border-radius: 0 0 50% 50% / 0 0 10% 10%;
+  }
+  .arch-names { display: flex; align-items: center; justify-content: center; gap: 1.4rem; margin-top: 1rem; }
+  .arch-names .ring-mono { color: #C9A15A; flex-shrink: 0; }
+  .tagline-arc {
+    position: absolute; left: 50%; bottom: 7.6rem; transform: translateX(-50%);
+    width: min(88%, 320px); height: auto; overflow: visible;
+  }
+  .tagline-arc text {
+    fill: #E7CE9B; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600;
+    font-size: 17px; letter-spacing: 0.14em;
+  }
+  .arch-photo-wrap {
+    max-width: 300px; margin: -7rem auto 0; position: relative;
+    border-radius: 50% 50% 6px 6px / 46% 46% 6px 6px;
+    overflow: hidden; border: 7px solid #FBF5E9;
+    box-shadow: 0 22px 45px rgba(66, 19, 28, 0.35);
+  }
+  .arch-photo { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
+
+  /* ---------- Album coverflow ---------- */
+  .album-bar { background: #42131C; color: #F1E4CF; padding: 0.85rem 1rem; text-align: center; }
+  .album-wrap { position: relative; max-width: 640px; margin: 2.75rem auto 0; height: 320px; touch-action: pan-y; }
+  @media (min-width: 640px) { .album-wrap { height: 400px; } }
+  .album-track { position: relative; width: 100%; height: 100%; overflow: hidden; }
+  .album-slide {
+    position: absolute; top: 50%; left: 50%; width: 180px;
+    border-radius: 4px; border: 4px solid #FBF5E9; aspect-ratio: 2 / 3; object-fit: cover; object-position: center 35%;
+    box-shadow: 0 14px 30px rgba(42, 33, 27, 0.28);
+    /* Shorter, ease-out timing than before so a tap feels immediate; the same curve drives
+       position, fade and blur together so neighbours glide instead of drifting. */
+    transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), filter 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+    cursor: pointer; user-select: none; -webkit-user-drag: none;
+  }
+  @media (min-width: 640px) { .album-slide { width: 220px; } }
+  .album-slide.is-active { cursor: zoom-in; }
+  /* The blanket reduced-motion rule at the top of this file forces every transition to ~0ms, which
+     would turn the album into hard cuts; keep the album's own timing. */
+  @media (prefers-reduced-motion: reduce) {
+    .album-slide { transition-duration: 1.1s, 0.9s, 0.9s !important; }
+  }
+  .album-arrow {
+    position: absolute; top: 50%; z-index: 30; width: 40px; height: 40px; margin-top: -20px; border-radius: 999px;
+    background: #FBF5E9; color: #6B1E2A; border: 1px solid #C9A15A;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    box-shadow: 0 4px 12px rgba(42, 33, 27, 0.15); transition: transform 0.3s ease;
+  }
+  .album-prev { left: 1rem; } .album-next { right: 1rem; }
+  .album-arrow:hover { transform: scale(1.06); }
+  .album-arrow:active { transform: scale(0.95); }
+
+  .album-dots { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; max-width: 360px; margin: 1.6rem auto 0; padding-inline: 1.5rem; }
+  .album-dot {
+    position: relative; width: 6px; height: 6px; padding: 0; border: 0; border-radius: 999px; cursor: pointer;
+    background: rgba(107, 30, 42, 0.25); transition: width 0.3s ease, background-color 0.3s ease;
+  }
+  .album-dot::after { content: ''; position: absolute; inset: -9px -4px; } /* larger tap target */
+  .album-dot:hover { background: rgba(107, 30, 42, 0.5); }
+  .album-dot.is-active { width: 20px; background: #6B1E2A; }
+
+  /* ---------- Album lightbox ---------- */
+  .album-lightbox {
+    position: fixed; inset: 0; z-index: 90;
+    background: rgba(20, 10, 8, 0.9);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    display: flex; align-items: center; justify-content: center; padding: 1rem;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .album-lightbox.is-visible { opacity: 1; visibility: visible; }
+  .album-lightbox img {
+    max-width: 100%; max-height: 88vh; max-height: 88svh; width: auto; height: auto; object-fit: contain;
+    border-radius: 6px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+    transform: scale(0.9); opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+  }
+  .album-lightbox.is-visible img { transform: scale(1); opacity: 1; }
+  .album-lightbox-close {
+    position: absolute; top: 1rem; right: 1rem; width: 44px; height: 44px; border-radius: 999px;
+    background: rgba(251, 245, 233, 0.12); color: #FBF5E9; border: 1px solid rgba(201, 161, 90, 0.5);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  .album-lightbox-close:hover { background: #6B1E2A; transform: scale(1.08); }
+  @media (prefers-reduced-motion: reduce) {
+    .album-lightbox, .album-lightbox img { transition-duration: 0.4s !important; }
+    .album-lightbox img { transform: none !important; }
+  }
+
+  /* ---------- Gift box (ribbon-wrapped present → QR dialog) ---------- */
+  .gift-stage { display: inline-block; margin-top: 2rem; }
+  /* Idle: the present bobs gently to invite a tap. */
+  @keyframes gift-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .gift-btn {
+    position: relative; display: inline-flex; flex-direction: column; align-items: center;
+    padding: 0.75rem 1.5rem; background: none; border: 0; cursor: pointer;
+    animation: gift-bob 2.5s ease-in-out infinite;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .gift-btn img {
+    display: block; width: 132px; height: auto; user-select: none; -webkit-user-drag: none;
+    filter: drop-shadow(0 14px 12px rgba(66, 19, 28, 0.28));
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .gift-btn:hover img { transform: scale(1.1); }
+  /* Tap: a quick hop before the dialog opens. */
+  @keyframes gift-hop { 0%, 100% { transform: translateY(0) scale(1); } 40% { transform: translateY(-22%) scale(1.06); } 70% { transform: translateY(0) scale(0.97); } }
+  .gift-btn.is-hopping img { animation: gift-hop 0.4s ease-out; }
+  /* Hearts drift up from the tap point and fade. */
+  @keyframes gift-heart-float { 0% { transform: translateY(0) scale(0.8); opacity: 1; } 100% { transform: translateY(-100px) scale(1.4); opacity: 0; } }
+  .gift-heart { position: absolute; pointer-events: none; line-height: 0; animation: gift-heart-float 1.5s ease-out forwards; }
+
+  /* Dialog: backdrop fades in, the card settles up into place. */
+  .gift-modal {
+    position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; padding: 1rem;
+    background: rgba(20, 10, 8, 0.8);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .gift-modal.is-open { opacity: 1; visibility: visible; }
+  .gift-card {
+    position: relative; width: 100%; max-width: 360px; max-height: calc(100vh - 2rem); max-height: calc(100svh - 2rem); overflow-y: auto;
+    padding: 2.5rem 1.5rem 1.75rem; text-align: center;
+    background: #FBF5E9; border: 1px solid rgba(201, 161, 90, 0.6); border-radius: 4px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    transform: translateY(14px) scale(0.96);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .gift-modal.is-open .gift-card { transform: none; }
+  .gift-close {
+    position: absolute; top: 0.75rem; right: 0.75rem; width: 38px; height: 38px; border-radius: 999px;
+    background: transparent; color: #6B1E2A; border: 1px solid #C9A15A;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  }
+  .gift-close:hover { background: #6B1E2A; color: #FBF5E9; transform: scale(1.08); }
+  .gift-qr {
+    display: inline-block; padding: 10px; background: #fff; line-height: 0;
+    border: 1px solid rgba(201, 161, 90, 0.5); border-radius: 4px; box-shadow: 0 10px 24px rgba(42, 33, 27, 0.15);
+  }
+  .gift-qr canvas, .gift-qr img { display: block; margin: 0 auto; }
+
+  /* Idle bobbing is decorative, so it still respects reduced-motion. The tap feedback (hop, hearts)
+     and the dialog fade are direct responses to a tap, so they keep their timing despite the
+     blanket rule at the top of this file. */
+  @media (prefers-reduced-motion: reduce) {
+    .gift-btn { animation: none; }
+    .gift-btn.is-hopping img { animation-duration: 0.4s !important; }
+    .gift-heart { animation-duration: 1.5s !important; }
+    .gift-modal { transition-duration: 0.3s !important; }
+    .gift-card { transform: none; }
+  }
+
+/* ---------- Gift dialog tabs ---------- */
+.gift-tabs { display: flex; gap: 0.4rem; margin-top: 1.25rem; padding: 0.25rem; border: 1px solid rgba(201, 161, 90, 0.5); border-radius: 999px; }
+.gift-tab {
+  flex: 1; padding: 0.5rem 0.75rem; border: 0; border-radius: 999px; background: transparent; cursor: pointer;
+  font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #6B1E2A;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.gift-tab.is-active { background: #6B1E2A; color: #FBF5E9; }
+.gift-qr img { display: block; width: 100%; max-width: 240px; height: auto; margin: 0 auto; }

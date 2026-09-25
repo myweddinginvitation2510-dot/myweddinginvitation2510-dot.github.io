@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Trang &amp; Phương</title>
+<script>document.documentElement.classList.add('is-closed');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="js/tailwind-config.js"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============================= OPENING SPLASH ============================= -->
+<div id="splash">
+  <div class="splash-glyph" style="top:12%; left:10%;" aria-hidden="true">囍</div>
+  <div class="splash-glyph" style="top:20%; right:12%; font-size:1.3rem; animation-delay:1.2s;" aria-hidden="true">囍</div>
+  <div class="splash-glyph" style="bottom:16%; left:14%; font-size:1.1rem; animation-delay:2.4s;" aria-hidden="true">囍</div>
+  <div class="splash-glyph" style="bottom:10%; right:16%; animation-delay:0.6s;" aria-hidden="true">囍</div>
+
+  <div class="splash-card">
+    <div class="splash-mono">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="9" cy="14" r="5"/><circle cx="15" cy="14" r="5"/><path d="M9 9V6h6v3" stroke-linecap="round"/></svg>
+    </div>
+    <p class="font-display italic" style="font-size:1.7rem; color:#F1E4CF;">Thu Trang</p>
+    <p class="eyebrow eyebrow--on-dark" style="letter-spacing:0.1em; margin:0.2rem 0;">&amp;</p>
+    <p class="font-display italic" style="font-size:1.7rem; color:#F1E4CF;">Nam Phương</p>
+
+    <div class="flex items-center justify-center gap-3 my-4" aria-hidden="true">
+      <span style="height:1px; width:32px; background:rgba(201,161,90,0.55);"></span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="#C9A15A"><path d="M12 2c-3 4-3 7 0 9 3-2 3-5 0-9Z"/></svg>
+      <span style="height:1px; width:32px; background:rgba(201,161,90,0.55);"></span>
+    </div>
+
+    <p class="font-display font-medium" style="color:#E7CE9B; font-size:1.1rem; letter-spacing:0.06em; font-variant-numeric: lining-nums tabular-nums;">Chủ Nhật · 25.10.2026</p>
+    <p class="eyebrow eyebrow--on-dark mt-2">Thân Mời</p>
+
+    <button id="splash-open" type="button" class="mt-7 px-8 py-2.5 font-semibold" style="background:#FBF5E9; color:#42131C; border-radius:999px; font-family:'Cormorant Garamond', Georgia, serif; font-size:1rem; letter-spacing:0.2em; text-indent:0.2em; text-transform:uppercase;">
+      Mở Thiệp
+    </button>
+  </div>
+</div>
+
+<!-- ============================= PROGRESS + FLOATING CONTROLS ============================= -->
+<div id="progress-bar"></div>
+
+<button id="music-toggle" type="button" aria-pressed="false" aria-label="Bật nhạc nền">
+  <span class="ring" aria-hidden="true"></span>
+  <svg id="icon-note-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+    <path d="M9 18V5l11-2v13" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>
+    <line x1="3" y1="3" x2="21" y2="21" stroke="#E7CE9B"/>
+  </svg>
+  <svg id="icon-note-on" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" hidden>
+    <path d="M9 18V5l11-2v13" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>
+  </svg>
+</button>
+
+<main>
+
+<!-- ============================= HERO / COVER ============================= -->
+<section id="hero" class="flex items-center justify-center px-6 py-16 text-center">
+  <div class="frame"></div>
+  <svg class="corner corner--tl" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="1"><path d="M2 2h20M2 2v20M2 2C16 6 20 16 20 30" stroke-linecap="round"/></svg>
+  <svg class="corner corner--br" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="1"><path d="M2 2h20M2 2v20M2 2C16 6 20 16 20 30" stroke-linecap="round"/></svg>
+
+  <div class="relative max-w-2xl mx-auto">
+    <p class="hero-reveal eyebrow eyebrow--on-dark">Trân trọng kính mời</p>
+
+    <svg class="hero-reveal sprig mx-auto my-4" width="110" height="22" viewBox="0 0 110 22" fill="none" stroke="#C9A15A" stroke-width="1">
+      <path d="M2 11h106" stroke-linecap="round"/>
+      <path d="M55 11c-6-6-6-9 0-9s6 3 0 9Z"/>
+      <path d="M55 11c-6 6-6 9 0 9s6-3 0-9Z"/>
+    </svg>
+
+    <!-- One line at every width: the name is ~9.6em wide, so the size follows the viewport (capped at 4.2rem). -->
+    <h1 class="hero-reveal font-display italic font-medium leading-tight" style="font-size: min(4.2rem, calc((100vw - 3.5rem) / 9.9)); white-space: nowrap;">
+      Thu Trang <span class="not-italic" style="color:#C9A15A;">&amp;</span> Nam Phương
+    </h1>
+
+    <p class="hero-reveal mt-4 font-body text-sm tracking-wide" style="color:#F1E4CF;">Chúng tôi sắp về chung một nhà</p>
+
+    <p class="hero-reveal tabular mt-6 text-base sm:text-lg" style="color:#E7CE9B; letter-spacing:0.04em;">
+      Chủ Nhật · 25.10.2026 · 10:00
+    </p>
+
+    <div class="hero-reveal tabular mt-7 flex items-stretch justify-center gap-2 sm:gap-3" id="countdown" aria-label="Đếm ngược đến ngày cưới">
+      <div class="countdown-tile rounded-sm px-2.5 py-2.5 sm:px-3.5">
+        <div class="text-xl sm:text-2xl font-display font-semibold" id="cd-days">00</div>
+        <div class="text-[0.62rem] tracking-widest uppercase mt-0.5" style="color:#E7CE9B;">Ngày</div>
+      </div>
+      <div class="countdown-tile rounded-sm px-2.5 py-2.5 sm:px-3.5">
+        <div class="text-xl sm:text-2xl font-display font-semibold" id="cd-hours">00</div>
+        <div class="text-[0.62rem] tracking-widest uppercase mt-0.5" style="color:#E7CE9B;">Giờ</div>
+      </div>
+      <div class="countdown-tile rounded-sm px-2.5 py-2.5 sm:px-3.5">
+        <div class="text-xl sm:text-2xl font-display font-semibold" id="cd-mins">00</div>
+        <div class="text-[0.62rem] tracking-widest uppercase mt-0.5" style="color:#E7CE9B;">Phút</div>
+      </div>
+      <div class="countdown-tile rounded-sm px-2.5 py-2.5 sm:px-3.5">
+        <div class="text-xl sm:text-2xl font-display font-semibold" id="cd-secs">00</div>
+        <div class="text-[0.62rem] tracking-widest uppercase mt-0.5" style="color:#E7CE9B;">Giây</div>
+      </div>
+    </div>
+
+    <a href="#story" class="scroll-cue inline-flex mt-10" style="color:#C9A15A;" aria-label="Cuộn xuống để xem thêm">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ============================= WELCOME ARCH + PHOTO ============================= -->
+<section id="intro-photo" class="reveal">
+  <div class="arch-panel">
+    <p class="eyebrow eyebrow--on-dark" style="letter-spacing:0.3em;">Welcome to our wedding</p>
+    <div class="arch-names">
+      <div>
+        <p class="eyebrow eyebrow--on-dark" style="opacity:0.75;">Cô Dâu</p>
+        <p class="font-display font-semibold mt-1" style="font-size:1.15rem; color:#F1E4CF;">Thu Trang</p>
+      </div>
+      <svg class="ring-mono" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="9" cy="14" r="5"/><circle cx="15" cy="14" r="5"/><path d="M9 9V6h6v3" stroke-linecap="round"/></svg>
+      <div>
+        <p class="eyebrow eyebrow--on-dark" style="opacity:0.75;">Chú Rể</p>
+        <p class="font-display font-semibold mt-1" style="font-size:1.15rem; color:#F1E4CF;">Nam Phương</p>
+      </div>
+    </div>
+    <svg class="tagline-arc" viewBox="0 0 320 62" role="img" aria-label="Trọn đời bên nhau">
+      <path id="taglineArc" d="M10,52 Q160,10 310,52" fill="none"/>
+      <text text-anchor="middle">
+        <textPath href="#taglineArc" startOffset="50%">✦ &#160;&#160;TRỌN ĐỜI BÊN NHAU&#160;&#160; ✦</textPath>
+      </text>
+    </svg>
+  </div>
+  <div class="arch-photo-wrap">
+    <img class="arch-photo" src="images/DSC09471.jpg" alt="Thu Trang và Nam Phương" loading="eager">
+  </div>
+</section>
+
+<!-- ============================= FAMILIES / PARENTS ============================= -->
+<section id="families" class="px-6 py-16 sm:py-20" style="background:#F1E4CF;">
+  <div class="max-w-2xl mx-auto text-center reveal">
+    <p class="eyebrow">Gia đình hai họ</p>
+    <h2 class="font-display italic font-medium mt-3" style="font-size: clamp(1.6rem, 4.5vw, 2rem); color:#2A211B;">Song thân đôi bên</h2>
+
+    <div class="grid grid-cols-2 gap-6 sm:gap-12 mt-10" style="border-top:1px solid rgba(201,161,90,0.4);">
+      <div class="pt-8" style="border-right:1px solid rgba(201,161,90,0.4);">
+        <p class="eyebrow" style="letter-spacing:0.22em;">Nhà gái</p>
+        <p class="font-display text-lg sm:text-xl mt-3 leading-snug" style="color:#2A211B;">Ông Nguyễn Văn Phụng</p>
+        <p class="font-display text-lg sm:text-xl mt-1 leading-snug" style="color:#2A211B;">Bà Đỗ Thị Hoa</p>
+      </div>
+      <div class="pt-8">
+        <p class="eyebrow" style="letter-spacing:0.22em;">Nhà trai</p>
+        <p class="font-display text-lg sm:text-xl mt-3 leading-snug" style="color:#2A211B;">Ông Trần Đức Vân</p>
+        <p class="font-display text-lg sm:text-xl mt-1 leading-snug" style="color:#2A211B;">Bà Trương Thị Vân Anh</p>
+      </div>
+    </div>
+
+    <p class="mt-8 text-sm leading-relaxed" style="color:#5B4C3F;">
+      Hai gia đình trân trọng kính mời quan viên hai họ, cùng bạn bè thân hữu<br class="hidden sm:block">
+      tới chung vui trong ngày thành hôn của hai con.
+    </p>
+  </div>
+</section>
+
+<!-- ============================= OUR STORY ============================= -->
+<section id="story" class="px-6 py-20 sm:py-28">
+  <div class="max-w-lg mx-auto text-center reveal">
+    <p class="eyebrow">Lời ngỏ</p>
+    <h2 class="font-display italic font-medium mt-3" style="font-size: clamp(1.8rem, 5vw, 2.4rem); color:#2A211B;">Gửi đến những người thương mến</h2>
+
+    <p class="drop-cap text-left mt-8 leading-relaxed" style="color:#5B4C3F;">
+      Trên hành trình của mỗi người, có những khoảnh khắc ta biết mình đã tìm thấy đúng người để đi cùng suốt quãng đường còn lại.
+      Với chúng tôi, khoảnh khắc ấy đã đến — lặng lẽ, dịu dàng, và chắc chắn.
+    </p>
+    <p class="text-left mt-4 leading-relaxed" style="color:#5B4C3F;">
+      Ngày 25 tháng 10 năm 2026, chúng tôi sẽ cùng nhau bước qua cánh cửa mới của cuộc đời, với lời hứa yêu thương và trân trọng nhau mỗi ngày.
+      Sự hiện diện của gia đình và bạn bè sẽ là niềm hạnh phúc trọn vẹn nhất trong ngày trọng đại này.
+    </p>
+
+    <svg class="sprig mx-auto mt-8" width="90" height="18" viewBox="0 0 110 22" fill="none" stroke="#93702F" stroke-width="1">
+      <path d="M2 11h106" stroke-linecap="round"/>
+      <path d="M55 11c-6-6-6-9 0-9s6 3 0 9Z"/>
+      <path d="M55 11c-6 6-6 9 0 9s6-3 0-9Z"/>
+    </svg>
+    <p class="font-display italic mt-4" style="font-size:1.35rem; color:#3E5A4C;">Thu Trang &amp; Nam Phương</p>
+  </div>
+</section>
+
+<!-- ============================= PHOTO ALBUM ============================= -->
+<section id="album" class="reveal pb-20 sm:pb-28">
+  <div class="album-bar">
+    <p class="eyebrow eyebrow--on-dark" style="letter-spacing:0.3em;">Album ảnh</p>
+  </div>
+
+  <div class="album-wrap" id="album-stage">
+    <button class="album-arrow album-prev" type="button" aria-label="Ảnh trước">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="album-track" id="album-track">
+      <img class="album-slide" src="images/1.jpg" alt="Ảnh cưới 1" decoding="async">
+      <img class="album-slide" src="images/2.jpg" alt="Ảnh cưới 2" decoding="async" loading="lazy">
+      <img class="album-slide" src="images/3.jpg" alt="Ảnh cưới 3" decoding="async" loading="lazy">
+      <img class="album-slide" src="images/4.jpg" alt="Ảnh cưới 4" decoding="async" loading="lazy">
+      <img class="album-slide" src="images/5.jpg" alt="Ảnh cưới 5" decoding="async" loading="lazy">
+      <img class="album-slide" src="images/6.jpg" alt="Ảnh cưới 6" decoding="async" loading="lazy">
+      <img class="album-slide" src="images/7.jpg" alt="Ảnh cưới 7" decoding="async" loading="lazy">
+      <img class="album-slide" src="images/9.jpg" alt="Ảnh cưới 8" decoding="async" loading="lazy">
+      <img class="album-slide" src="images/10.jpg" alt="Ảnh cưới 9" decoding="async" loading="lazy">
+      <img class="album-slide" src="images/11.jpg" alt="Ảnh cưới 10" decoding="async" loading="lazy">
+      <img class="album-slide" src="images/12.jpg" alt="Ảnh cưới 11" decoding="async" loading="lazy">
+      <img class="album-slide" src="images/13.jpg" alt="Ảnh cưới 12" decoding="async" loading="lazy">
+      <img class="album-slide" src="images/14.jpg" alt="Ảnh cưới 13" decoding="async" loading="lazy">
+      <img class="album-slide" src="images/15.jpg" alt="Ảnh cưới 14" decoding="async" loading="lazy">
+      <img class="album-slide" src="images/16.jpg" alt="Ảnh cưới 15" decoding="async" loading="lazy">
+    </div>
+    <button class="album-arrow album-next" type="button" aria-label="Ảnh sau">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <div class="album-dots" id="album-dots"></div>
+</section>
+
+<div id="album-lightbox" class="album-lightbox" role="dialog" aria-modal="true" aria-label="Xem ảnh phóng to" aria-hidden="true">
+  <button id="album-lightbox-close" type="button" class="album-lightbox-close" aria-label="Đóng ảnh">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+  </button>
+  <img id="album-lightbox-img" src="" alt="">
+</div>
+
+<!-- ============================= TIMELINE ============================= -->
+<section id="timeline" class="px-6 py-20 sm:py-28" style="background:#F1E4CF;">
+  <div class="max-w-3xl mx-auto text-center reveal">
+    <p class="eyebrow">Chương trình</p>
+    <h2 class="font-display italic font-medium mt-3" style="font-size: clamp(1.8rem, 5vw, 2.4rem); color:#2A211B;">Ngày trọng đại</h2>
+
+    <div class="date-row mt-6" aria-label="Chủ Nhật, ngày 25 tháng 10 năm 2026">
+      <span class="dow">Chủ Nhật</span>
+      <span class="day tabular">25</span>
+      <span class="mon">Tháng 10</span>
+    </div>
+    <p class="font-display mt-3" style="font-size:1.5rem; color:#5B4C3F; letter-spacing:0.04em; font-variant-numeric: lining-nums;">2026</p>
+    <!-- Âm lịch: 25/10/2026 dương = 16/9 năm Bính Ngọ (tháng 9 âm bắt đầu 10/10/2026). -->
+    <p class="mt-1 text-xs" style="color:#5B4C3F;">(Tức ngày 16 tháng 9 năm Bính Ngọ)</p>
+
+    <div class="cal" role="group" aria-label="Lịch tháng 10 năm 2026, ngày cưới 25 được đánh dấu">
+      <p class="cal-title">Tháng 10 / 2026</p>
+      <div class="cal-grid cal-head" aria-hidden="true">
+        <span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span>
+      </div>
+      <div class="cal-grid cal-days">
+        <!-- 1/10/2026 là Thứ Năm → 3 ô trống đầu tiên -->
+        <span class="cal-day"></span><span class="cal-day"></span><span class="cal-day"></span>
+        <span class="cal-day">1</span><span class="cal-day">2</span><span class="cal-day">3</span><span class="cal-day">4</span>
+        <span class="cal-day">5</span><span class="cal-day">6</span><span class="cal-day">7</span><span class="cal-day">8</span><span class="cal-day">9</span><span class="cal-day">10</span><span class="cal-day">11</span>
+        <span class="cal-day">12</span><span class="cal-day">13</span><span class="cal-day">14</span><span class="cal-day">15</span><span class="cal-day">16</span><span class="cal-day">17</span><span class="cal-day">18</span>
+        <span class="cal-day">19</span><span class="cal-day">20</span><span class="cal-day">21</span><span class="cal-day">22</span><span class="cal-day">23</span><span class="cal-day">24</span>
+        <span class="cal-day is-wedding" aria-current="date" aria-label="Ngày 25, ngày cưới">
+          <svg viewBox="0.5 4 23 18" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.5-9.2C1.2 8.4 3.2 5 6.6 5c2 0 3.6 1.1 5.4 3 1.8-1.9 3.4-3 5.4-3 3.4 0 5.4 3.4 4.1 6.8C19.5 16.4 12 21 12 21Z"/></svg>
+          <span>25</span>
+        </span>
+        <span class="cal-day">26</span><span class="cal-day">27</span><span class="cal-day">28</span><span class="cal-day">29</span><span class="cal-day">30</span><span class="cal-day">31</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Single vertical column at every width (same as on a phone); max-w-sm keeps it phone-sized on desktop. -->
+  <div class="tl-list max-w-sm mx-auto mt-14">
+    <div class="tl-item reveal pb-10">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tabular font-display text-2xl font-semibold" style="color:#3E5A4C;">10:00</p>
+      <p class="font-semibold mt-1" style="color:#2A211B;">Lễ Vu Quy &amp; Tiệc nhà gái</p>
+      <p class="text-sm mt-1" style="color:#5B4C3F;">Tại tư gia nhà gái, thôn Trung, xã Phù Đổng, TP. Hà Nội.</p>
+    </div>
+
+    <div class="tl-item reveal pb-10">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tabular font-display text-2xl font-semibold" style="color:#3E5A4C;">15:00</p>
+      <p class="font-semibold mt-1" style="color:#2A211B;">Đón dâu</p>
+      <p class="text-sm mt-1" style="color:#5B4C3F;">Nhà trai sang đón cô dâu về nhà chồng.</p>
+    </div>
+
+    <div class="tl-item reveal pb-10">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tabular font-display text-2xl font-semibold" style="color:#3E5A4C;">16:00</p>
+      <p class="font-semibold mt-1" style="color:#2A211B;">Lễ Thành Hôn</p>
+      <p class="text-sm mt-1" style="color:#5B4C3F;">Nghi thức làm lễ bên nhà trai, tại sân bóng Xuân Dục, xã Phù Đổng, TP. Hà Nội.</p>
+    </div>
+
+    <div class="tl-item reveal">
+      <span class="tl-dot" aria-hidden="true"></span>
+      <p class="tabular font-display text-2xl font-semibold" style="color:#3E5A4C;">17:00</p>
+      <p class="font-semibold mt-1" style="color:#2A211B;">Tiệc nhà trai</p>
+      <p class="text-sm mt-1" style="color:#5B4C3F;">Chung vui cùng gia đình hai họ tại sân bóng Xuân Dục.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= LOCATION ============================= -->
+<section id="location" class="px-6 py-20 sm:py-28">
+  <div class="max-w-4xl mx-auto text-center reveal">
+    <p class="eyebrow">Địa điểm</p>
+    <h2 class="font-display italic font-medium mt-3" style="font-size: clamp(1.8rem, 5vw, 2.4rem); color:#2A211B;">Nơi chúng ta hội ngộ</h2>
+  </div>
+
+  <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 md:gap-10 mt-12">
+
+    <div class="reveal p-7 sm:p-8 text-center md:text-left" style="border:1px solid rgba(201,161,90,0.4);">
+      <p class="eyebrow" style="letter-spacing:0.22em;">10:00 · Nhà gái</p>
+      <p class="font-display text-xl font-semibold mt-3" style="color:#2A211B;">Lễ Vu Quy &amp; Tiệc nhà gái</p>
+      <p class="mt-2 leading-relaxed text-sm" style="color:#5B4C3F;">Tư gia nhà gái<br>Số 45, ngách 291/11, thôn Trung,<br>xã Phù Đổng, thành phố Hà Nội</p>
+
+      <a
+        href="https://maps.app.goo.gl/CDB7hGPNySEZ3bbE7?g_st=iz"
+        target="_blank" rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 mt-6 px-5 py-2.5 text-xs font-semibold tracking-wide uppercase"
+        style="background:#6B1E2A; color:#F1E4CF; border:1px solid #C9A15A;"
+      >
+        Chỉ đường
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="reveal p-7 sm:p-8 text-center md:text-left" style="border:1px solid rgba(201,161,90,0.4);">
+      <p class="eyebrow" style="letter-spacing:0.22em;">16:00 &amp; 17:00 · Nhà trai</p>
+      <p class="font-display text-xl font-semibold mt-3" style="color:#2A211B;">Lễ Thành Hôn &amp; Tiệc nhà trai</p>
+      <p class="mt-2 leading-relaxed text-sm" style="color:#5B4C3F;">Sân bóng Xuân Dục<br>Xã Phù Đổng,<br>thành phố Hà Nội</p>
+
+      <a
+        href="https://maps.app.goo.gl/CDB7hGPNySEZ3bbE7?g_st=iz"
+        target="_blank" rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 mt-6 px-5 py-2.5 text-xs font-semibold tracking-wide uppercase"
+        style="background:#6B1E2A; color:#F1E4CF; border:1px solid #C9A15A;"
+      >
+        Chỉ đường
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+  </div>
+
+  <div class="flex justify-center mt-10 reveal">
+    <svg width="140" height="140" viewBox="0 0 230 230" fill="none" aria-hidden="true">
+      <circle cx="115" cy="115" r="108" stroke="#C9A15A" stroke-width="1" stroke-dasharray="2 6"/>
+      <path d="M115 60c-24 0-42 18-42 41 0 30 42 66 42 66s42-36 42-66c0-23-18-41-42-41Z" stroke="#3E5A4C" stroke-width="1.4"/>
+      <circle cx="115" cy="101" r="13" stroke="#3E5A4C" stroke-width="1.4"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ============================= GIFT BOX ============================= -->
+<section id="gift" class="px-6 py-20 sm:py-28 text-center">
+  <p class="eyebrow">Mừng cưới</p>
+  <h2 class="font-display italic font-medium mt-3" style="font-size: clamp(1.8rem, 5vw, 2.4rem); color:#2A211B;">Hộp quà mừng</h2>
+  <p class="mt-2 text-sm max-w-xs mx-auto" style="color:#5B4C3F;">Tấm lòng của bạn là niềm vui của chúng tôi.</p>
+
+  <div class="gift-stage">
+    <button id="gift-box" class="gift-btn" type="button" aria-haspopup="dialog" aria-label="Mở hộp quà mừng để xem mã QR">
+      <img src="images/silk_ribbon_darkred.webp" alt="" width="112" height="107" decoding="async">
+    </button>
+    <p class="mt-3 text-xs tracking-widest uppercase" style="color:#93702F;">Nhấn để mở quà</p>
+  </div>
+</section>
+
+</main>
+
+<!-- Gift dialog -->
+<div id="gift-modal" class="gift-modal" role="dialog" aria-modal="true" aria-labelledby="gift-title" aria-hidden="true">
+  <div class="gift-card">
+    <button id="gift-close" type="button" class="gift-close" aria-label="Đóng">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+    </button>
+    <p class="eyebrow">Mừng cưới</p>
+    <h3 id="gift-title" class="font-display italic font-medium mt-2" style="font-size:1.8rem; color:#2A211B;">Hộp quà mừng</h3>
+    <div class="gift-tabs" role="tablist" aria-label="Chọn QR mừng cưới">
+      <button type="button" role="tab" class="gift-tab is-active" data-tab="bride" aria-selected="true">Cô Dâu</button>
+      <button type="button" role="tab" class="gift-tab" data-tab="groom" aria-selected="false">Chú Rể</button>
+    </div>
+    <div class="gift-panel mt-5" data-panel="groom" role="tabpanel" hidden>
+      <div class="gift-qr"><img src="qr/2.jpg" alt="Mã QR mừng cưới Chú Rể"></div>
+      <p class="mt-4 text-sm" style="color:#2A211B;">QR Chú Rể · Nam Phương</p>
+      <p class="mt-1 text-xs leading-relaxed" style="color:#5B4C3F;">Ngân hàng: Techcombank<br>STK: 1903 8913 4400 11</p>
+    </div>
+    <div class="gift-panel mt-5" data-panel="bride" role="tabpanel">
+      <div class="gift-qr"><img src="qr/1.jpg" alt="Mã QR mừng cưới Cô Dâu"></div>
+      <p class="mt-4 text-sm" style="color:#2A211B;">QR Cô Dâu · Thu Trang</p>
+      <p class="mt-1 text-xs leading-relaxed" style="color:#5B4C3F;">Ngân hàng: Vietcombank<br>STK: 0961000024851</p>
+    </div>
+    <p class="mt-2 text-xs" style="color:#5B4C3F;">Quét mã để gửi lời chúc &amp; mừng cưới</p>
+  </div>
+</div>
+
+<!-- ============================= FOOTER ============================= -->
+<footer id="footer" class="px-6 py-16 text-center" style="background:#42131C; color:#F1E4CF;">
+  <svg class="sprig mx-auto" width="90" height="18" viewBox="0 0 110 22" fill="none" stroke="#C9A15A" stroke-width="1">
+    <path d="M2 11h106" stroke-linecap="round"/>
+    <path d="M55 11c-6-6-6-9 0-9s6 3 0 9Z"/>
+    <path d="M55 11c-6 6-6 9 0 9s6-3 0-9Z"/>
+  </svg>
+  <p class="font-display italic mt-5" style="font-size:1.5rem; color:#E7CE9B;">Thu Trang &amp; Nam Phương</p>
+  <p class="mt-3 text-sm max-w-sm mx-auto leading-relaxed">Sự hiện diện của bạn là món quà quý giá nhất đối với chúng tôi. Hẹn gặp bạn ngày 25.10.2026.</p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
