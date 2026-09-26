@@ -249,13 +249,31 @@
   var lightbox = document.getElementById('album-lightbox');
   var lightboxImg = document.getElementById('album-lightbox-img');
   var lightboxClose = document.getElementById('album-lightbox-close');
+  var lightboxCount = document.getElementById('album-lightbox-count');
   var lightboxReturnFocus = null;
+  var lightboxSwapTimer = null;
 
-  function openLightbox() {
-    if (albumLightboxOpen) return;
+  function showLightboxSlide() {
     var slide = albumSlides[albumCurrent];
     lightboxImg.src = slide.currentSrc || slide.src;
     lightboxImg.alt = slide.alt;
+    lightboxCount.textContent = (albumCurrent + 1) + ' / ' + albumTotal;
+  }
+
+  // Previous/next inside the lightbox also moves the coverflow, so closing lands on the same photo.
+  function lightboxStep(dir) {
+    albumGo(albumCurrent + dir);
+    clearTimeout(lightboxSwapTimer);
+    lightboxImg.classList.add('is-swapping');
+    lightboxSwapTimer = setTimeout(function () {
+      showLightboxSlide();
+      lightboxImg.classList.remove('is-swapping');
+    }, 150);
+  }
+
+  function openLightbox() {
+    if (albumLightboxOpen) return;
+    showLightboxSlide();
     lightboxReturnFocus = document.activeElement;
     lightbox.setAttribute('aria-hidden', 'false');
     lightbox.classList.add('is-visible');
@@ -276,9 +294,36 @@
   }
   // (Slide taps are handled once, in the coverflow block above: centre photo → openLightbox, others → albumGo.)
   lightboxClose.addEventListener('click', closeLightbox);
-  lightbox.addEventListener('click', function (e) { if (e.target !== lightboxClose) closeLightbox(); });
+  document.querySelector('.album-lightbox-prev').addEventListener('click', function () { lightboxStep(-1); });
+  document.querySelector('.album-lightbox-next').addEventListener('click', function () { lightboxStep(1); });
+
+  // Swipe inside the lightbox. A swipe also fires a click afterwards, which must not close it.
+  var lightboxTouchX = null, lightboxTouchY = null, lightboxSwiped = false;
+  lightbox.addEventListener('touchstart', function (e) {
+    lightboxTouchX = e.touches[0].clientX; lightboxTouchY = e.touches[0].clientY;
+    lightboxSwiped = false;
+  }, { passive: true });
+  lightbox.addEventListener('touchend', function (e) {
+    if (lightboxTouchX === null) return;
+    var dx = e.changedTouches[0].clientX - lightboxTouchX;
+    var dy = e.changedTouches[0].clientY - lightboxTouchY;
+    lightboxTouchX = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+      lightboxSwiped = true;
+      lightboxStep(dx < 0 ? 1 : -1);
+    }
+  });
+
+  lightbox.addEventListener('click', function (e) {
+    if (lightboxSwiped) { lightboxSwiped = false; return; }
+    if (e.target.closest('.album-lightbox-close, .album-lightbox-nav')) return;
+    closeLightbox();
+  });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeLightbox();
+    if (!albumLightboxOpen) return;
+    if (e.key === 'ArrowLeft') lightboxStep(-1);
+    if (e.key === 'ArrowRight') lightboxStep(1);
   });
 
   // Swipe (touch): horizontal movement only, so vertical page scrolling is untouched.
